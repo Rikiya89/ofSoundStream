@@ -7,6 +7,8 @@ void ofApp::setup(){
     pan = 0.5;//volume
     phase = 0;
     frequency = 440;
+    ofSetFrameRate(30);
+    ofBackground(32, 32, 32);
 
     //setting for play music
     ofSoundStreamSettings settings;
@@ -100,7 +102,7 @@ void ofApp::audioRequested(float* output, int bufferSize, int nChannels) {
 
     //make a phase of the size of buffer
     for(int i = 0; i < bufferSize; i++) {
-
+        //update a position
         phase += phaseDiff;
         while (phase > TWO_PI){
             phase -= TWO_PI;
@@ -110,9 +112,9 @@ void ofApp::audioRequested(float* output, int bufferSize, int nChannels) {
         sample = sin(phase);
 
         //audio out, left right 2ch
-        output[i * nChannels] = sample * pan * amp;
+        lAudio [i] =  output[i * nChannels] = sample * pan * amp;
 
-        output[i * nChannels + 1] = sample * pan * amp;
+        rAudio [i] = output[i * nChannels + 1] = sample * pan * amp;
     }
 }
 //--------------------------------------------------------------
