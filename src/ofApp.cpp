@@ -3,12 +3,13 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     sampleRate = 44100;//sampling frequency
+    bufSize = 256;
     amp = 0.5;//position
     pan = 0.5;//volume
     phase = 0;
     frequency = 440;
     ofSetFrameRate(30);
-    ofBackground(32, 32, 32);
+    ofBackground(33, 33, 33);
 
     //setting for play music
     ofSoundStreamSettings settings;
@@ -36,7 +37,7 @@ void ofApp::draw(){
     //draw left channel waveform
     ofBeginShape();
     for (int i = 0; i < bufSize; i++){
-        ofVertex(i + phaseDiff, audioHeight/2 + lAudio[i] * audioHeight);
+        ofVertex(i * phaseDiff, audioHeight/2 + lAudio[i] * audioHeight);
     }
     ofEndShape();
 
@@ -110,7 +111,7 @@ void ofApp::audioRequested(float* output, int bufferSize, int nChannels) {
 
         //make a sine waveform
         sample = sin(phase);
-
+        
         //audio out, left right 2ch
         lAudio [i] =  output[i * nChannels] = sample * pan * amp;
 
