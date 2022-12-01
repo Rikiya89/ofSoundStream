@@ -52,7 +52,32 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    //change to wave from and volume by key type
+    switch (key) {
+        case '-'://volume down
+            amp -= 0.05;
+            amp = MAX(amp, 0);
+            break;
+        case '+'://volume up
+            amp += 0.05;
+            amp = MIN(amp, 1);
+            break;
+        case '1': //sin wave
+            waveShape = 1;
+            break;
+        case '2'://sawtooth wave
+            waveShape = 2;
+            break;
+        case '3'://short wave
+            waveShape = 3;
+            break;
+        case '4'://triangle shape
+            waveShape = 4;
+            break;
+        case '5'://white noise
+            waveShape = 5;
+            break;
+    }
 }
 
 //--------------------------------------------------------------
@@ -62,7 +87,12 @@ void ofApp::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-
+    pan = (float)x / (float)ofGetWidth();
+    float heightPct = (float(ofGetHeight()-y) / float(ofGetHeight()));
+    frequency = 4000.0f * heightPct;
+    if(frequency < 20) {
+        frequency = 20;
+    }
 }
 
 //--------------------------------------------------------------
@@ -109,13 +139,29 @@ void ofApp::audioRequested(float* output, int bufferSize, int nChannels) {
             phase -= TWO_PI;
         }
 
-        //make a sine waveform
-        sample = sin(phase);
+        //select a waveform
+        switch (waveShape) {
+            case 1://sin wave
+                sample = sin(phase);
+                break;
+            case 2://sawtooth wave
+                sample = - phase / PI + 1;
+                break;
+            case 3://short wave
+                sample = (phase < PI) ? -1 : 1;
+                break;
+            case 4://triangle wave
+                sample = (phase < PI) ? -2 / PI * phase + 1 : 2 / PI * phase -3;
+                break;
+            case 5://white noise
+                sample = ofRandom(-1,1);
+        }
+
         
         //audio out, left right 2ch
         lAudio [i] =  output[i * nChannels] = sample * pan * amp;
 
-        rAudio [i] = output[i * nChannels + 1] = sample * pan * amp;
+        rAudio [i] = output[i * nChannels + 1] = sample * (1.0 - pan) * amp;
     }
 }
 //--------------------------------------------------------------
