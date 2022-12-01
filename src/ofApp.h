@@ -29,6 +29,7 @@ public:
     float amp;//volume
     float phase;
     float frequency;
-    float lAudio[256];
-    float rAudio[256];
+    int waveShape;
+    float lAudio[256];//left channel wave form
+    float rAudio[256];//right channel wave form
 };
