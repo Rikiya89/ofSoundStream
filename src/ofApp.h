@@ -20,7 +20,7 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    void audioRequested(float * input, int bufferSize, int nChannels);
+    void audioReceived(float * input, int bufferSize, int nChannels);
 
     ofSoundStream soundStream;
     int bufSize;//buffer size
