@@ -2,23 +2,21 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    sampleRate = 44100;//sampling frequency
-    bufSize = 256;
-    amp = 0.5;//position
-    pan = 0.5;//volume
-    phase = 0;
-    frequency = 440;
-    ofSetFrameRate(30);
+
+    bufSize = 256;//buffer size
     ofBackground(33, 33, 33);
+    ofSetColor(0, 0, 255);
 
     //setting for play music
     ofSoundStreamSettings settings;
     settings.setOutListener(this);
-    settings.sampleRate = sampleRate;
     settings.numOutputChannels = 2;
     settings.numInputChannels = 0;
     settings.bufferSize = 512;
     soundStream.setup(settings);
+    
+    left = new float[bufSize];
+    right = new float [bufSize];
 }
 
 //--------------------------------------------------------------
