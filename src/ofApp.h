@@ -23,13 +23,7 @@ public:
     void audioRequested(float * input, int bufferSize, int nChannels);
 
     ofSoundStream soundStream;
-    int sampleRate;//sampling frequency
-    int bufSize;//size of buffer
-    float pan;//position
-    float amp;//volume
-    float phase;
-    float frequency;
-    int waveShape;
-    float lAudio[256];//left channel wave form
-    float rAudio[256];//right channel wave form
+    int bufSize;//buffer size
+    float* left;//left channel sample
+    float* right;//right channel sample
 };
