@@ -20,10 +20,6 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    void audioReceived(float * input, int bufferSize, int nChannels);
 
-    ofSoundStream soundStream;
-    int bufSize;//buffer size
-    float* left;//left channel sample
-    float* right;//right channel sample
+    ofSoundPlayer mySound;//instancing of Sound class
 };
