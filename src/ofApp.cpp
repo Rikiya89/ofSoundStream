@@ -2,19 +2,27 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofBackground(0, 0, 0);
+    ofSetVerticalSync(true);
+    ofSetCircleResolution(64);
+    ofEnableAlphaBlending();
 
+    radius = 0;
     mySound.load("lifelike-126735.mp3");
     mySound.setLoop(true);//on loop
-    mySound.play();//sound play
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    float* val = ofSoundGetSpectrum(1);
+    radius = val[0] * 9000.0;//apply for circle's
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    //draw a circle for mouse position
+    ofSetColor(0, 204, 0, 180);
+    ofDrawCircle(mouseX, mouseY, radius);
 }
 
 //--------------------------------------------------------------
