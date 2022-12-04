@@ -22,4 +22,5 @@ public:
     void gotMessage(ofMessage msg);
 
     ofSoundPlayer mySound;//instancing of Sound class
+    float radius;
 };
